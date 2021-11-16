@@ -14,10 +14,10 @@ def client_connect(ip, port, client_name):
     while True:
 
         # Get input for message, append client name to front, and convert to bytes
-        client_socket.sendall(bytes(client_name + ":" + input(">"), 'utf-8'))
+        client_socket.sendall(bytes(client_name + ": " + input(">"), 'utf-8'))
 
         # Receive messages up to 1024 bytes
-        print("CLIENT:", client_socket.recv(1024))
+        print(client_socket.recv(1024).decode('utf-8'))
 
 
 def main():

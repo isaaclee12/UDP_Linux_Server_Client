@@ -21,11 +21,11 @@ def server_connect(ip, port, admin_name):
         while True:
             # Receive messages up to 1024 bytes
             received_msg = client_socket.recv(1024)
-            print("CLIENT:", received_msg)
+            print(received_msg.decode('utf-8'))
 
             # Send messages
             # Get input for message, append admin name to front, and convert to bytes
-            msg_to_send = bytes(admin_name + ":" + input(">"), 'utf-8')
+            msg_to_send = bytes(admin_name + ": " + input(">"), 'utf-8')
             client_socket.send(msg_to_send)
 
 
