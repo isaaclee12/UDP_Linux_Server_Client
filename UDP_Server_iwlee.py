@@ -19,14 +19,16 @@ def server_connect(ip, port, admin_name):
         print("Connected to:", address)
 
         while True:
+            # Send messages
+            # Get input for message, append admin name (capitalized) to front, and convert to bytes
+            msg_to_send = bytes(admin_name.capitalize() + ": " + input(), 'utf-8')
+            client_socket.send(msg_to_send)
+
             # Receive messages up to 1024 bytes
             received_msg = client_socket.recv(1024)
             print(received_msg.decode('utf-8'))
 
-            # Send messages
-            # Get input for message, append admin name to front, and convert to bytes
-            msg_to_send = bytes(admin_name + ": " + input(">"), 'utf-8')
-            client_socket.send(msg_to_send)
+
 
 
 def main():
@@ -35,10 +37,10 @@ def main():
     # ip = "10.0.2.5"
 
     # Get user input for port number as int
-    port = int(input("Please enter your port number: "))
+    port = 8080 #int(input("Please enter your port number: "))
 
     # Get user input for admin's name
-    admin_name = input("Please enter the admin's name: ")
+    admin_name = "Alice" #input("Please enter the admin's name: ")
 
     # Connect using ip and port
     server_connect(ip, port, admin_name)

@@ -13,8 +13,8 @@ def client_connect(ip, port, client_name):
 
     while True:
 
-        # Get input for message, append client name to front, and convert to bytes
-        client_socket.sendall(bytes(client_name + ": " + input(">"), 'utf-8'))
+        # Get input for message, append client name (capitalized) to front, and convert to bytes
+        client_socket.sendall(bytes(client_name.capitalize() + ": " + input(), 'utf-8'))
 
         # Receive messages up to 1024 bytes
         print(client_socket.recv(1024).decode('utf-8'))
@@ -26,10 +26,10 @@ def main():
     #ip = "10.0.2.6"
 
     # Get user input for port number as int
-    port = int(input("Please enter your port number: "))
+    port = 8080 #int(input("Please enter your port number: "))
 
     # Get user input for admin's name
-    client_name = input("Please enter the client's name: ")
+    client_name = "Bob" #input("Please enter the client's name: ")
 
     # Connect using ip and port
     client_connect(ip, port, client_name)
