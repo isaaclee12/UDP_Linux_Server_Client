@@ -2,17 +2,17 @@ import socket
 
 
 def server_connect(ip, port, admin_name):
-    # Establish INET, STREAMing socket
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Establish socket
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    # Bind to socket's hostname & port 80
-    server_socket.bind((socket.gethostname(), 80))
+    # Bind socket to ip and port
+    server.bind((ip, port))
 
     # Listen for one connection
-    server_socket.listen(1)
+    server.listen(1)
 
     # Accept connections from outside
-    (client_socket, address) = server_socket.accept()
+    (client_socket, address) = server.accept()
 
     # Msg if connection succeeds
     with client_socket:
@@ -30,14 +30,15 @@ def server_connect(ip, port, admin_name):
 
 
 def main():
-    # Establish ip to connect to
-    ip = "10.0.2.5"
+    # Establish ip of Bob
+    ip = "127.0.0.1"
+    # ip = "10.0.2.5"
 
     # Get user input for port number as int
-    port = int(input("Please enter your port number:"))
+    port = int(input("Please enter your port number: "))
 
     # Get user input for admin's name
-    admin_name = input("Please enter the admin's name:")
+    admin_name = input("Please enter the admin's name: ")
 
     # Connect using ip and port
     server_connect(ip, port, admin_name)
