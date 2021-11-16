@@ -5,7 +5,7 @@ def server_connect(ip, port, admin_name):
     # Establish socket
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    # Bind socket to ip and port
+    # Bind socket to ip and port of THIS machine
     server.bind((ip, port))
 
     # Listen for one connection
@@ -32,9 +32,8 @@ def server_connect(ip, port, admin_name):
 
 
 def main():
-    # Establish ip of Bob
-    ip = "127.0.0.1"
-    # ip = "10.0.2.5"
+    # Establish ip of self for binding
+    ip = "10.0.2.6"
 
     # Get user input for port number as int
     port = 8080 #int(input("Please enter your port number: "))
