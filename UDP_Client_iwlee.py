@@ -22,7 +22,8 @@ def client_connect(ip, port, client_name):
 
 def main():
     # Establish ip of Alice
-    ip = "10.0.2.6"
+    # ip = "10.0.2.6"
+    ip = "127.0.0.1"
 
     # Get user input for port number as int
     port = 8080 #int(input("Please enter your port number: "))
