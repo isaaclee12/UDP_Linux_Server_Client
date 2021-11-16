@@ -22,12 +22,16 @@ def threaded(client_socket, admin_name):
 
         # Send messages
         # Get input for message, append admin name (capitalized) to front, and convert to bytes
-        msg_to_send = bytes(admin_name.capitalize() + ": " + input(), 'utf-8')
+        username = admin_name.upper() + ": "
+        msg_to_send = bytes(username + input(), 'utf-8')
         client_socket.send(msg_to_send)
 
 def server_connect(ip, port, admin_name):
     # Establish socket
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Allow reuse of socket
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     # Bind socket to ip and port of THIS machine
     server.bind((ip, port))
@@ -54,9 +58,9 @@ def server_connect(ip, port, admin_name):
 
 
 def main():
-    # Establish ip of self for binding
-    # ip = "10.0.2.6"
-    ip = "127.0.0.1"
+    # Establish ip of self for binding (Switch comments to test on local machine vs VMs)
+    ip = "10.0.2.6"
+    # ip = "127.0.0.1"
 
     # Get user input for port number as int
     port = 8080 #int(input("Please enter your port number: "))

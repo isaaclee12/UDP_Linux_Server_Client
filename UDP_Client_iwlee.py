@@ -14,16 +14,18 @@ def client_connect(ip, port, client_name):
     while True:
 
         # Get input for message, append client name (capitalized) to front, and convert to bytes
-        client_socket.sendall(bytes(client_name.capitalize() + ": " + input(), 'utf-8'))
+        username = client_name.upper() + ": "
+        msg_to_send = bytes(username + input(), 'utf-8')
+        client_socket.sendall(msg_to_send)
 
         # Receive messages up to 1024 bytes
         print(client_socket.recv(1024).decode('utf-8'))
 
 
 def main():
-    # Establish ip of Alice
-    # ip = "10.0.2.6"
-    ip = "127.0.0.1"
+    # Establish ip of Alice (Switch comments to test on local machine vs VMs)
+    ip = "10.0.2.6"
+    # ip = "127.0.0.1"
 
     # Get user input for port number as int
     port = 8080 #int(input("Please enter your port number: "))
