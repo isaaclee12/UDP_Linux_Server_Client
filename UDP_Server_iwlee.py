@@ -1,7 +1,7 @@
 import socket
 
-def main():
 
+def server_connect(ip, port, admin_name):
     # Establish INET, STREAMing socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -11,22 +11,36 @@ def main():
     # Listen for one connection
     server_socket.listen(1)
 
-    while True:
+    # Accept connections from outside
+    (client_socket, address) = server_socket.accept()
 
-        # Accept connections from outside
-        (c, address) = server_socket.accept()
-        client_socket = c
+    # Msg if connection succeeds
+    with client_socket:
+        print("Connected to:", address)
 
-        checking_connection = True
+        while True:
+            # Receive messages up to 1024 bytes
+            received_msg = client_socket.recv(1024)
+            print("CLIENT:", received_msg)
 
-        # If we accepted a socket
-        if client_socket is not None and checking_connection:
-            print("Connection Succeeded")
-            checking_connection = False
+            # Send messages
+            # Get input for message, append admin name to front, and convert to bytes
+            msg_to_send = bytes(admin_name + ":" + input(">"), 'utf-8')
+            client_socket.send(msg_to_send)
 
-        # Get input for message
-        msg_to_send = bytes(input(">"), 'utf-8')
-        client_socket.send(msg_to_send)
+
+def main():
+    # Establish ip to connect to
+    ip = "10.0.2.5"
+
+    # Get user input for port number as int
+    port = int(input("Please enter your port number:"))
+
+    # Get user input for admin's name
+    admin_name = input("Please enter the admin's name:")
+
+    # Connect using ip and port
+    server_connect(ip, port, admin_name)
 
 
 main()
